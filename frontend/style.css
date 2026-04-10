@@ -1,0 +1,13 @@
+*:root{
+    main-vg-color: #0037FF;
+}
+
+body{
+    background-color: var(main-vg-color);
+    cursor: url(/frontend/img/blueStarCursor_128.png), auto;
+}
+
+img {
+    display: flex;
+    justify-content: center;
+}
