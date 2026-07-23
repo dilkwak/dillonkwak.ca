@@ -1,13 +1,189 @@
-*:root{
-    main-vg-color: #0037FF;
+:root {
+  color-scheme: light dark;
+
+  --ml: clamp(150px, 10vw, 190px);
+  --mr: clamp(48px, 4vw, 64px);
+
+  --bg: #ffffff;
+  --fg: #0037ff;
+  --fg-rgb: 0, 55, 255;
+}
+:root[data-theme="home"] {
+  --bg: #0037ff;
+  --fg: #ffffff;
+  --fg-rgb: 255, 255, 255;
+}
+:root[data-theme="dark"] {
+  --bg: #191a1c;
+  --fg: #eef0e0;
+  --fg-rgb: 238, 240, 224;
 }
 
-body{
-    background-color: var(main-vg-color);
-    cursor: url(/frontend/img/blueStarCursor_128.png), auto;
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
 }
 
-img {
-    display: flex;
-    justify-content: center;
+body {
+  font-family: 'Times New Roman', Times, 'Liberation Serif', Georgia, serif;
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color .25s ease, color .25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+a { color: inherit; }
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--ml) 1fr var(--mr);
+}
+
+/* ---------- margins ---------- */
+.margin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.margin-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(72px, 16vh, 140px) 0 clamp(20px, 6vh, 48px);
+  transition: width .3s ease;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  width: 100%;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+.nav a {
+  all: unset;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--fg);
+  font-size: .95rem;
+  letter-spacing: .02em;
+  padding: 4px 6px;
+  border-radius: 3px;
+  text-align: center;
+}
+.nav a.is-active {
+  background: rgba(var(--fg-rgb), .12);
+}
+.nav a:focus-visible,
+.theme-switch button:focus-visible,
+.collapse-toggle:focus-visible,
+.subpage-tile:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.collapse-toggle {
+  all: unset;
+  cursor: pointer;
+  color: var(--fg);
+  font-size: 1rem;
+  opacity: .6;
+  padding: 6px 10px;
+  display: none;
+}
+.page.can-collapse .collapse-toggle { display: inline-block; }
+.page.can-collapse.menu-collapsed .margin-left { width: 40px; }
+.page.can-collapse.menu-collapsed .nav,
+.page.can-collapse.menu-collapsed .theme-switch { opacity: 0; pointer-events: none; }
+.page.subpages-collapsed .subpage-grid { display: none; }
+
+/* ---------- content ---------- */
+.content {
+  padding: clamp(72px, 16vh, 140px) clamp(14px, 3vw, 28px) clamp(16px, 3vh, 28px);
+}
+.content-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 0 clamp(32px, 6vw, 72px);
+}
+@media (max-width: 700px) {
+  .content-inner { grid-template-columns: 1fr; }
+  .subpage-panel { flex-direction: row-reverse; justify-content: flex-end; margin-top: 1.5em; }
+  .subpage-grid { align-items: flex-start; }
+  .subpage-tile { text-align: left; }
+}
+
+/* ---------- theme switch, top of the left task bar ---------- */
+.theme-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(32px, 8vh, 64px);
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+.theme-switch button {
+  all: unset;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .78rem;
+  letter-spacing: .03em;
+  color: var(--fg);
+  opacity: .5;
+  padding: 2px 1px;
+}
+.theme-switch button.is-active {
+  opacity: 1;
+  border-bottom: 1px solid var(--fg);
+}
+
+.subpage-panel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0 0 .5em;
+  text-wrap: balance;
+}
+p { line-height: 1.65; margin: 0 0 1.4em; }
+
+.subpage-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .6em;
+  padding-top: .3em;
+}
+.subpage-tile {
+  all: unset;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--fg);
+  text-align: right;
+}
+.subpage-tile:hover,
+.subpage-tile:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 620px) {
+  .nav a { font-size: .85rem; }
 }

@@ -1,12 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Dillon Kwak</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/style.css">
+  <title>Dillon Kwak</title>
 </head>
 <body>
-    <img src="/frontend/img/houseBlueprint.png" alt="">
+  <div class="page" data-page="home">
+    <aside class="margin margin-left">
+      <div class="theme-switch" role="group" aria-label="Theme">
+        <button type="button" data-mode="light">Light</button>
+        <button type="button" data-mode="home">Home</button>
+        <button type="button" data-mode="dark">Dark</button>
+      </div>
+
+      <nav class="nav">
+        <a href="/index.html" class="is-active" aria-current="page">Home</a>
+        <a href="/inspiration/inspiration.html">Inspiration</a>
+        <a href="/design/design.html">Design</a>
+        <a href="/practice/practice.html">Practice</a>
+        <a href="/projects/projects.html">Projects</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="content-inner">
+        <div class="text-block">
+          <h1>Home</h1>
+          <p>I don't have a house of my own yet, so this is the little space online I get to call home.</p>
+        </div>
+      </div>
+    </main>
+
+    <aside class="margin margin-right" aria-hidden="true"></aside>
+  </div>
+  <script src="/script.js" defer></script>
 </body>
 </html>
